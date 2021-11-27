@@ -3,7 +3,11 @@ package com.server.onlineup.service.business.signup;
 import com.server.onlineup.common.constant.AuthenticationEnum;
 import com.server.onlineup.common.exception.APIException;
 import com.server.onlineup.common.response.BaseResponse;
+import com.server.onlineup.model.entity.ProfileEntity;
 import com.server.onlineup.model.response.EmailVerificationReponse;
+import com.server.onlineup.model.response.JwtResponse;
+import com.server.onlineup.model.response.LoginResponse;
+import com.server.onlineup.model.response.ProfileResponse;
 import com.server.onlineup.service.database.ProfileService;
 import com.server.onlineup.service.provider.jwt.JwtService;
 import com.server.onlineup.service.provider.rest.RestService;
@@ -65,8 +69,15 @@ public class SignUpService {
         if (!profileService.existingEmail(email)) {
             profileService.createAccount(email, fullname, password);
         } else profileService.updateAccount(email, fullname, password);
+        //Adding: response jwt + profile info to navigate to home screen.
+        String jwt = jwtService.generateTokenFromEmail(email);
+        JwtResponse jwtResponse = new JwtResponse(jwt);
+        ProfileEntity user = profileService.findByUsername(email).get();
+
+        LoginResponse loginResponse = new LoginResponse(new ProfileResponse(user), jwtResponse);
         return BaseResponse.Builder()
                 .addMessage(AuthenticationEnum.CREATE_ACCOUNT_SUCCESS)
+                .addData(loginResponse)
                 .build();
     }
 

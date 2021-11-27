@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "168cc427-b25b-4041-a8e4-69cc85fa1403",
-		"name": "onLineUp API",
+		"_postman_id": "6cd4e582-a1b0-4b7c-9e0a-0a4355706e4d",
+		"name": "onLineUp API Copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -330,12 +330,208 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "Room",
+			"item": [
+				{
+					"name": "{{host}}/room/create-room",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"address\":\"HCMUS - 224 Nguyen Van Cu\",\r\n    \"processUnit\": 15,\r\n    \"startDate\":\"1638064563\",\r\n    \"endDate\": \"1638071763\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/room/create-room",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"room",
+								"create-room"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "{{host}}/room/list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token\n}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/room/list",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"room",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "{{host}}/room/add-user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token\n}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userEmail\":\"quanghuybui93@gmail.com\",\r\n    \"roomId\":\"9eb20e6c-642a-4853-94a0-75921681788c\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/room/add-user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"room",
+								"add-user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "{{host}}/add-co-host",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token\n}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userEmail\":\"quanghuybui93@gmail.com\",\r\n    \"roomId\":\"9eb20e6c-642a-4853-94a0-75921681788c\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/room/add-co-host",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"room",
+								"add-co-host"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "{{host}}/room/change-host",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token\n}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userEmail\":\"edricnguyen192@gmail.com\",\r\n    \"roomId\":\"9eb20e6c-642a-4853-94a0-75921681788c\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/room/change-host",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"room",
+								"change-host"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"variable": [
 		{
 			"key": "URL-Local",
 			"value": "http://localhost:8080/"
+		},
+		{
+			"key": "URL-Heroku",
+			"value": "https://onlineup-server.herokuapp.com/"
 		}
 	]
 }

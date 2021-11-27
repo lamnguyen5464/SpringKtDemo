@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -66,19 +67,28 @@ public class JwtService {
             return true;
         } catch (SignatureException e) {
             throw new APIException(
-                    BaseResponse.Builder().addMessage(AuthenticationEnum.INVALID_SIGNATURE_TOKEN)
+                    BaseResponse.Builder()
+                            .addMessage(AuthenticationEnum.INVALID_SIGNATURE_TOKEN)
+                            .addErrorStatus(HttpStatus.UNAUTHORIZED)
+
             );
         } catch (MalformedJwtException e) {
             throw new APIException(
-                    BaseResponse.Builder().addMessage(AuthenticationEnum.INVALID_TOKEN)
+                    BaseResponse.Builder()
+                            .addMessage(AuthenticationEnum.INVALID_TOKEN)
+                            .addErrorStatus(HttpStatus.UNAUTHORIZED)
             );
         } catch (ExpiredJwtException e) {
             throw new APIException(
-                    BaseResponse.Builder().addMessage(AuthenticationEnum.EXPIRED_TOKEN)
+                    BaseResponse.Builder()
+                            .addMessage(AuthenticationEnum.EXPIRED_TOKEN)
+                            .addErrorStatus(HttpStatus.UNAUTHORIZED)
             );
         } catch (UnsupportedJwtException e) {
             throw new APIException(
-                    BaseResponse.Builder().addMessage(AuthenticationEnum.UNSUPPORTED_TOKEN)
+                    BaseResponse.Builder()
+                            .addMessage(AuthenticationEnum.UNSUPPORTED_TOKEN)
+                            .addErrorStatus(HttpStatus.UNAUTHORIZED)
             );
         } catch (IllegalArgumentException e) {
             throw new APIException(
