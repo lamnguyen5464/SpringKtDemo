@@ -1,5 +1,6 @@
 package com.server.onlineup.model.entity;
 
+import com.server.onlineup.common.constant.RoleEnum;
 import com.server.onlineup.common.utils.TimeUtils;
 
 import javax.persistence.*;
@@ -8,6 +9,20 @@ import java.util.Objects;
 @Entity
 @Table(name = "RoomAdmin")
 public class RoomAdminEntity {
+    // This line help the json return have id of admin
+    public String getId() {return id.getProfile();}
+    public String getProfileId() {
+        return id.getProfile();
+    }
+    public String getRoomId() {
+        return id.getRoom();
+    }
+    public RoleEnum getRole() {
+        return role;
+    }
+    public long getJoinTime() {
+        return joinTime;
+    }
 
     @EmbeddedId
     RoomProfileKey id;
@@ -23,18 +38,10 @@ public class RoomAdminEntity {
     RoomEntity roomEntity;
 
     @Enumerated(EnumType.STRING)
-    private Role role = Role.HOST;
+    private RoleEnum role = RoleEnum.HOST;
 
-    public void changeRole() {
-        if(this.role.equals(Role.HOST)){
-            this.role = Role.CO_HOST;
-        }else {
-            this.role = Role.HOST;
-        }
-    }
-
-    private enum Role {
-        HOST, CO_HOST
+    public void changeRole(RoleEnum role) {
+        this.role = role;
     }
 
     public RoomAdminEntity() {}

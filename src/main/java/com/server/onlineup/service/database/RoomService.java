@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class RoomService implements IRoomService {
@@ -24,6 +25,11 @@ public class RoomService implements IRoomService {
     }
 
     @Override
+    public Set<RoomEntity> findByInventoryIds(Set<String> inventoryIdList) {
+        return roomRepository.findByInventoryIds(inventoryIdList);
+    }
+
+    @Override
     public RoomEntity save(RoomEntity room) {
         return roomRepository.save(room);
     }
@@ -32,4 +38,6 @@ public class RoomService implements IRoomService {
     public void remove(String id) {
         roomRepository.deleteById(id);
     }
+
+
 }

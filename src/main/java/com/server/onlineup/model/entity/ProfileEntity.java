@@ -40,6 +40,14 @@ public class ProfileEntity {
             orphanRemoval = true)
     Set<RoomUserEntity> roomAsUser = new HashSet<RoomUserEntity>();
 
+    public Set<RoomUserEntity> getRoomAsUser() {
+        return roomAsUser;
+    }
+
+    public Set<RoomAdminEntity> getRoomAsAdmin() {
+        return roomAsAdmin;
+    }
+
     @OneToMany(mappedBy = "profileEntity", cascade = CascadeType.ALL,
             orphanRemoval = true)
     Set<RoomAdminEntity> roomAsAdmin = new HashSet<RoomAdminEntity>();

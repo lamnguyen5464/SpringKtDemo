@@ -24,6 +24,7 @@ public class JsonUtils {
 
     public static String GetAttrBodyFromRequest(HttpServletRequest req, String key) throws IOException, ParseException {
         String params = extractPostRequestBody(req);
+        if(params.equals("")) return null;
         JSONParser parser = new JSONParser();
         JSONObject json = (JSONObject) parser.parse(params);
         return json.getAsString(key);

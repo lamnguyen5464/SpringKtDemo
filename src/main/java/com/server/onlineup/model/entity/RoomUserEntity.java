@@ -8,6 +8,18 @@ import java.util.Objects;
 @Entity
 @Table(name = "RoomUser")
 public class RoomUserEntity {
+    // This line help the json return have id of user
+    public String getId() {return id.getProfile();}
+    public String getProfileId() {
+        return id.getProfile();
+    }
+    public String getRoomId() {
+        return id.getRoom();
+    }
+    public long getJoinTime() {
+        return joinTime;
+    }
+
     @EmbeddedId
     private RoomProfileKey id;
 

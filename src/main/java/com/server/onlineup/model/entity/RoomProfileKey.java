@@ -16,4 +16,14 @@ public class RoomProfileKey implements Serializable {
         this.profile = profileId;
         this.room = roomId;
     }
+
+    public RoomProfileKey() {}
+
+    public String getProfile() {
+        return profile;
+    }
+
+    public String getRoom() {
+        return room;
+    }
 }
