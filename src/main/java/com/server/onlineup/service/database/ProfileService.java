@@ -7,7 +7,6 @@ import com.server.onlineup.model.entity.ProfileEntity;
 import com.server.onlineup.repository.ProfileRepository;
 import com.server.onlineup.security.principal.UserPrincipal;
 import com.server.onlineup.service.implementation.IUserService;
-import com.server.onlineup.service.provider.jwt.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,12 +24,6 @@ public class ProfileService implements IUserService {
     private ProfileRepository profileRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private JwtService jwtService;
-
-    @Autowired
-    private ProfileService profileService;
 
     @Override
     public Iterable<ProfileEntity> findAll() {
@@ -119,7 +112,7 @@ public class ProfileService implements IUserService {
 
         String email = ((UserDetails) user).getUsername();
         try {
-            Optional<ProfileEntity> UserFromEmail = profileService.findByUsername(email);
+            Optional<ProfileEntity> UserFromEmail = findByUsername(email);
             UserFromEmail.get().setFcmToken(fcm_token);
             profileRepository.save(UserFromEmail.get());
         } catch (APIException e) {
