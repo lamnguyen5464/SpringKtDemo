@@ -20,7 +20,7 @@ import java.util.Optional;
 
 @Service
 
-public class ProfileService implements IUserService {
+public abstract class ProfileService implements IUserService {
     @Autowired
     private ProfileRepository profileRepository;
     @Autowired
@@ -130,4 +130,5 @@ public class ProfileService implements IUserService {
                 .addMessage(AuthenticationEnum.GET_FCM_TOKEN_SUCCESS)
                 .build();
     }
+
 }

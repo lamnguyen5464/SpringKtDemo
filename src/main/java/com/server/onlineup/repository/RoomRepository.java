@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -13,6 +14,9 @@ public interface RoomRepository extends JpaRepository<RoomEntity, String> {
 
     void deleteById(String id);
 
-    @Query( "select o from RoomEntity o where id in :ids" )
+    @Query("select o from RoomEntity o where id in :ids")
     Set<RoomEntity> findByInventoryIds(@Param("ids") Set<String> inventoryIdList);
+
+    @Query("SELECT * FROM RoomEntity r WHERE r.name LIKE %?1%")
+    List<RoomEntity> searchRoom(String txt);
 }

@@ -1,20 +1,21 @@
 package com.server.onlineup.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.server.onlineup.common.constant.RoleEnum;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "Room")
 public class RoomEntity {
     @Column(nullable = false)
-    private long processUnit=5;
+    private long processUnit = 5;
 
     @Column(nullable = false)
-    private String address="OnLineUp Nguyen Van Cu";
+    private String address = "OnLineUp Nguyen Van Cu";
 
     @Column(nullable = false)
     private String theme = "#5e9ac4";
@@ -29,7 +30,7 @@ public class RoomEntity {
     private String hostName;
 
     @Column(nullable = false)
-    private boolean status=true;
+    private boolean status = true;
 
     @Id
     private String id = UUID.randomUUID().toString();
@@ -53,8 +54,52 @@ public class RoomEntity {
 
     public void setHostName(String s) {
         hostName = s;
-        if(name ==null)
-            name =  hostName + "'s meeting room";
+        if (name == null)
+            name = hostName + "'s meeting room";
+    }
+
+    public void setProcessUnit(long processUnit) {
+        this.processUnit = processUnit;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setTheme(String theme) {
+        this.theme = theme;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setMaxQueuer(int maxQueuer) {
+        this.maxQueuer = maxQueuer;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setUserList(Set<RoomUserEntity> userList) {
+        this.userList = userList;
+    }
+
+    public void setAdminList(Set<RoomAdminEntity> adminList) {
+        this.adminList = adminList;
+    }
+
+    public void setStartDate(long startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(long endDate) {
+        this.endDate = endDate;
     }
 
     public void addUser(ProfileEntity user) {
@@ -73,25 +118,28 @@ public class RoomEntity {
         roomAdminEntity.changeRole(RoleEnum.HOST);
         adminList.add(roomAdminEntity);
     }
+
     public void removeUser(String userId) {
         for (RoomUserEntity user : userList) {
-            if(userId.equals(user.getProfileId())) {
+            if (userId.equals(user.getProfileId())) {
                 userList.remove(user);
                 return;
             }
         }
     }
+
     public void removeCoHost(String coHostId) {
         for (RoomAdminEntity admin : adminList) {
-            if(coHostId.equals(admin.getProfileId())) {
+            if (coHostId.equals(admin.getProfileId())) {
                 adminList.remove(admin);
                 return;
             }
         }
     }
+
     public void removeHost() {
         for (RoomAdminEntity admin : adminList) {
-            if(admin.getRole() == RoleEnum.HOST) {
+            if (admin.getRole() == RoleEnum.HOST) {
                 adminList.remove(admin);
                 return;
             }
@@ -123,6 +171,7 @@ public class RoomEntity {
     public Set<RoomAdminEntity> getAdminList() {
         return this.adminList;
     }
+
     public Set<RoomUserEntity> getUserList() {
         return this.userList;
     }
@@ -162,6 +211,7 @@ public class RoomEntity {
     public long getEndDate() {
         return endDate;
     }
+
     public boolean getStatus() {
         return status;
     }
