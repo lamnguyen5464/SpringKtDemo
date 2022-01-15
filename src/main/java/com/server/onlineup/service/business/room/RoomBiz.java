@@ -259,8 +259,6 @@ public class RoomBiz {
                 .build();
     }
 
-    //
-//
     public ResponseEntity handleUpdateStatusRoom(UserDetails user, RoomEntity roomEntity) {
         Optional<ProfileEntity> currentUser = profileService.findByUsername(user.getUsername());
         Optional<RoomEntity> room = roomService.findById(roomEntity.getId());
@@ -285,7 +283,6 @@ public class RoomBiz {
                 .build();
     }
 
-    //
     public ResponseEntity showRoomDetail(String roomID) {
         Optional<RoomEntity> room = roomService.findById(roomID);
 
