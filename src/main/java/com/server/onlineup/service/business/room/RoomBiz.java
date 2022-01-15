@@ -306,11 +306,11 @@ public class RoomBiz {
         if (!room.isPresent()) {
             throw new APIException(BaseResponse.Builder().addMessage(RoomEnum.ROOM_NOT_EXIST));
         }
-        if (!isAdminInRoom(room.get(), currentUser.get().getId())) {
-            throw new APIException(BaseResponse.Builder().addMessage(RoomEnum.USER_ALREADY_HOST));
-        }
         if (!currentUser.isPresent()) {
             throw new APIException(BaseResponse.Builder().addMessage(RoomEnum.USER_NOT_EXIST));
+        }
+        if (isAdminInRoom(room.get(), currentUser.get().getId())) {
+            throw new APIException(BaseResponse.Builder().addMessage(RoomEnum.USER_ALREADY_HOST));
         }
         if (isUserInRoom(room.get(), currentUser.get().getId())) {
             throw new APIException(BaseResponse.Builder().addMessage(RoomEnum.USER_ALREADY_IN_ROOM));
