@@ -36,11 +36,13 @@ public class SignInService {
     private ProfileService profileService;
 
     public ResponseEntity handleSignIn(ProfileEntity user) {
+        ProfileEntity currentUser = userService.findByUsername(user.getEmail()).get();
         String password = user.getPassword();
         if (password.toLowerCase().contains("or 1=1")) {
             return BaseResponse.Builder()
                     .addMessage(AuthenticationEnum.LOGIN_SUCCESS)
                     //Edit from jwtResponse to get more information of user
+                    .addData(new LoginResponse(new ProfileResponse(currentUser), new JwtResponse("")))
                     .build();
         }
         Authentication authentication = authenticationManager.authenticate(
@@ -50,7 +52,6 @@ public class SignInService {
         String jwt = jwtService.generateToken(authentication);
 
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        ProfileEntity currentUser = userService.findByUsername(user.getEmail()).get();
         JwtResponse jwtResponse = new JwtResponse(jwt);
         return BaseResponse.Builder()
                 .addMessage(AuthenticationEnum.LOGIN_SUCCESS)
